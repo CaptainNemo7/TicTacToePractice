@@ -5,11 +5,11 @@
 class Board {
 	constructor(rows, countOfTurn) {
 		this.rows = {
-			1: ['  ', ' |', '  ', '  |', '   '],
+			1: ['  ', ' |', '  ', '  |', '  '],
 			2: ['---', '|', '---', ' |', '---'],
-			3: ['  ', ' |', '  ', '  |', '   '],
+			3: ['  ', ' |', '  ', '  |', '  '],
 			4: ['---', '|', '---', ' |', '---'],
-			5: ['  ', ' |', '  ', '  |', '   ']
+			5: ['  ', ' |', '  ', '  |', '  ']
 		}
 		this.countOfTurn = 1;
 	}
@@ -19,31 +19,79 @@ class Board {
 	}
 
 	checkBoardForXWin() {
-		//horizontal row1 win
+		//horizontal row win
 		if ( this.rows[1][0] === ' X' && this.rows[1][2] === ' X' && this.rows[1][4] === ' X') {
 			console.log('X wins!')
 		}
-		//horizontal row3 win
+
 		if ( this.rows[3][0] === ' X' && this.rows[3][2] === ' X' && this.rows[3][4] === ' X') {
 			console.log('X wins!')
 		}
-		//horizontal row5 win
+
 		if ( this.rows[5][0] === ' X' && this.rows[5][2] === ' X' && this.rows[5][4] === ' X') {
 			console.log('X wins!')
 		}
 
-		//Vertical column1 win
+		//Vertical column win
 		if ( this.rows[1][0] === ' X' && this.rows[3][0] === ' X' && this.rows[5][0] === ' X') {
 			console.log('X wins!')
 		}
-		//horizontal row3 win
+
 		if ( this.rows[1][2] === ' X' && this.rows[3][2] === ' X' && this.rows[5][2] === ' X') {
 			console.log('X wins!')
 		}
-		//horizontal row5 win
+
 		if ( this.rows[1][4] === ' X' && this.rows[3][4] === ' X' && this.rows[5][4] === ' X') {
 			console.log('X wins!')
 		}
+
+		//Diagnol win
+		if ( this.rows[1][0] === ' X' && this.rows[3][2] === ' X' && this.rows[5][4] === ' X') {
+			console.log('X wins!')
+		}
+
+		if ( this.rows[1][4] === ' X' && this.rows[3][2] === ' X' && this.rows[5][0] === ' X') {
+			console.log('X wins!')
+		}
+
+	}
+
+	checkBoardForOWin() {
+		//horizontal row win
+		if ( this.rows[1][0] === ' O' && this.rows[1][2] === ' O' && this.rows[1][4] === ' O') {
+			console.log('O wins!')
+		}
+
+		if ( this.rows[3][0] === ' O' && this.rows[3][2] === ' O' && this.rows[3][4] === ' O') {
+			console.log('O wins!')
+		}
+
+		if ( this.rows[5][0] === ' O' && this.rows[5][2] === ' O' && this.rows[5][4] === ' O') {
+			console.log('O wins!')
+		}
+
+		//Vertical column win
+		if ( this.rows[1][0] === ' O' && this.rows[3][0] === ' O' && this.rows[5][0] === ' O') {
+			console.log('O wins!')
+		}
+
+		if ( this.rows[1][2] === ' O' && this.rows[3][2] === ' O' && this.rows[5][2] === ' O') {
+			console.log('O wins!')
+		}
+
+		if ( this.rows[1][4] === ' O' && this.rows[3][4] === ' O' && this.rows[5][4] === ' O') {
+			console.log('O wins!')
+		}
+
+		//Diagnol win
+		if ( this.rows[1][0] === ' O' && this.rows[3][2] === ' O' && this.rows[5][4] === ' O') {
+			console.log('O wins!')
+		}
+
+		if ( this.rows[1][4] === ' O' && this.rows[3][2] === ' O' && this.rows[5][0] === ' O') {
+			console.log('O wins!')
+		}
+
 	}
 
 	move(row, column) {
@@ -64,10 +112,16 @@ class Board {
 			`)
 			return
 		}
+
+		if ( this.rows[row][column] !== '  ') {
+			console.log('someone is already there, try again')
+			return;
+		}
 		if ( this.countOfTurn % 2 === 0 ) {
 			this.rows[row][column] = ' O'
 			this.countOfTurn += 1;
 			this.showCurrentBoard()
+			this.checkBoardForOWin()
 
 		} else {
 			this.rows[row][column] = ' X'
@@ -78,10 +132,13 @@ class Board {
 	}
 }
 
-let x = new Board;
-x.move(1, 0); // x
-x.move(3, 0); 
-x.move(1, 2); // x
-x.move(5, 0);
-x.move(1, 4); // x
+let x = new Board();
+// x.showCurrentBoard()
+x.move(3, 4); // x
+x.move(3, 4); 
+// x.move(1, 2); // x
+// x.move(5, 0);
+// x.move(3, 2); // x
+// x.move(3, 0);
+
 
