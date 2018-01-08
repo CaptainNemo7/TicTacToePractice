@@ -3,22 +3,85 @@
 // five rows
 
 class Board {
-	constructor() {
-		this.row1 = [0, '    |', 0, '    |', 0]
-		this.row2 =['---', '|', '---', '|', '---']
-		this.row3 = [0, '    |', 0, '    |', 0]
-		this.row4 = ['---', '|', '---', '|', '---']
-		this.row5 =[0, '    |', 0, '    |', 0]
+	constructor(rows, countOfTurn) {
+		this.rows = {
+			1: ['  ', ' |', '  ', '  |', '   '],
+			2: ['---', '|', '---', ' |', '---'],
+			3: ['  ', ' |', '  ', '  |', '   '],
+			4: ['---', '|', '---', ' |', '---'],
+			5: ['  ', ' |', '  ', '  |', '   ']
+		}
+		this.countOfTurn = 1;
 	}
 
 	showCurrentBoard() {
-		console.log(this.row1)
-		console.log(this.row2)
-		console.log(this.row3)
-		console.log(this.row4)
-		console.log(this.row5)
+		console.log(this.rows)
+	}
+
+	checkBoardForXWin() {
+		//horizontal row1 win
+		if ( this.rows[1][0] === ' X' && this.rows[1][2] === ' X' && this.rows[1][4] === ' X') {
+			console.log('X wins!')
+		}
+		//horizontal row3 win
+		if ( this.rows[3][0] === ' X' && this.rows[3][2] === ' X' && this.rows[3][4] === ' X') {
+			console.log('X wins!')
+		}
+		//horizontal row5 win
+		if ( this.rows[5][0] === ' X' && this.rows[5][2] === ' X' && this.rows[5][4] === ' X') {
+			console.log('X wins!')
+		}
+
+		//Vertical column1 win
+		if ( this.rows[1][0] === ' X' && this.rows[3][0] === ' X' && this.rows[5][0] === ' X') {
+			console.log('X wins!')
+		}
+		//horizontal row3 win
+		if ( this.rows[1][2] === ' X' && this.rows[3][2] === ' X' && this.rows[5][2] === ' X') {
+			console.log('X wins!')
+		}
+		//horizontal row5 win
+		if ( this.rows[1][4] === ' X' && this.rows[3][4] === ' X' && this.rows[5][4] === ' X') {
+			console.log('X wins!')
+		}
+	}
+
+	move(row, column) {
+		if ( row === 2 || row === 4 || column === 1 || column === 3 ) {
+			console.log(`
+				oooooooooo                     oooo          oooo     oooo                                           ooooooooooo                        
+				 888    888   ooooooo     ooooo888            8888o   888    ooooooo   oooo   oooo  ooooooooo8       88  888  88 oo oooooo   oooo   oooo
+				 888oooo88    ooooo888  888    888            88 888o8 88  888     888  888   888  888oooooo8            888      888    888  888   888 
+				 888    888 888    888  888    888            88  888  88  888     888   888 888   888                   888      888          888 888  
+				o888ooo888   88ooo88 8o   88ooo888o          o88o  8  o88o   88ooo88       888       88oooo888          o888o    o888o           8888   
+				                                                                                                                              o8o888    
+				     o                               o88                                                                                                
+				    888       oooooooo8   ooooooo    oooo  oo oooooo                                                                                    
+				   8  88    888    88o    ooooo888    888   888   888                                                                                   
+				  8oooo88    888oo888o  888    888    888   888   888                                                                                   
+				o88o  o888o 888     888  88ooo88 8o  o888o o888o o888o                                                                                  
+				             888ooo888                                               
+			`)
+			return
+		}
+		if ( this.countOfTurn % 2 === 0 ) {
+			this.rows[row][column] = ' O'
+			this.countOfTurn += 1;
+			this.showCurrentBoard()
+
+		} else {
+			this.rows[row][column] = ' X'
+			this.countOfTurn += 1;
+			this.showCurrentBoard()
+			this.checkBoardForXWin()
+		}
 	}
 }
 
 let x = new Board;
-x.showCurrentBoard();
+x.move(1, 0); // x
+x.move(3, 0); 
+x.move(1, 2); // x
+x.move(5, 0);
+x.move(1, 4); // x
+
